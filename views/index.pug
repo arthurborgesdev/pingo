@@ -1,0 +1,27 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width initial-scale=1 shrink-to-fit=no')
+    meta(name='description' content='Serviço para geolocalizar coisas')
+    meta(name='author' content='Arthur Borges')
+    link(rel='icon' href='/public/img/logo.svg')
+
+    title Pingo! 
+    link(href='/public/css/bootstrap.css' rel='stylesheet')
+    link(href='/public/css/styles.css' rel='stylesheet')
+
+  body(class='text-center')
+    form(class='form-signin')
+      img(class='mb-4' src='/public/img/logo.svg' alt='' width='120' height='120')
+      h1(class='h3 mb-3 font-weight-normal') Pingo!
+      label(for='inputEmail' class='sr-only') Email 
+      input(type='email' id='inputEmail' class='form-control' placeholder='Email' required autofocus)
+      label(for='inputPassword' class='sr-only') Senha
+      input(type='password' id='inputPassword' class='form-control' placeholder='Senha' required)
+      div(class='checkbox mb-3')
+        label
+          input(type='checkbox' value='remember-me') 
+          |  Lembrar-me
+      button(class='btn btn-lg btn-primary btn-block' type='submit') Entrar
+      p(class='mt-5 mb-3 text-muted') &copy; Pingo 2018
