@@ -19,7 +19,7 @@ module.exports = function(app) {
 	  			res.send("Não é humano")
 	  		}
 
-	  		res.send("Passouu!")
+	  		res.render('/register', {isHuman: true})
 	  		// aqui fica a chamada pros controllers
  		    //res.redirect('/')
 	  	})

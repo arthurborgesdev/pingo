@@ -24,5 +24,7 @@ html(lang='pt')
       label(for='inputPassword' class='sr-only') Senha
       input(type='password' name='password' id='inputPassword' class='form-control' placeholder='Senha' required)
       div(class='g-recaptcha' data-sitekey='6Lcjq30UAAAAAGt2nDcPTSFS6XMHqgH3uAg1POmr')
+      if isHuman
+        p(class='h6 mb-3 font-weight-nromal') Passou no captcha!
       button(class='btn btn-lg btn-primary btn-block' type='submit') Salvar 
       p(class='mt-5 mb-3 text-muted') &copy; Pingo 2018
