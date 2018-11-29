@@ -9,13 +9,13 @@ module.exports = function(app) {
 
 	app.route('/register')
 	  .get((req, res) => 
-		  res.render('register'))
+		  res.render('register', {isHuman: true}))
 
 	  .post((req, res) => {
 
 	  	recaptcha.captchaVerify(req, res, function() { 
 	  		// Só vai acionar caso o recaptcha funcione
-	  		userController.handleInput(registerData)
+	  		userController.handleInput(req, res)
 	  	})
       
 	  })
