@@ -9,6 +9,7 @@ module.exports = function(app) {
 		  res.render('register'))
 
 	  .post((req, res) => {
+	  	console.log(req)
 		  console.log(req.body)
 		  // aqui fica a chamada pros controllers
 		  res.redirect('/')

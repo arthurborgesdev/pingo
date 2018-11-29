@@ -8,7 +8,7 @@ const express = require('express'),
       mongoose = require('mongoose')
 
 // substituir pelo link do mLAB no heroku em produção
-//mongoose.connect('mongodb://localhost/pingo')
+mongoose.connect('mongodb://localhost/pingo', { useNewUrlParser: true })
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
