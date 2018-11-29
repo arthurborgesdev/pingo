@@ -1,5 +1,6 @@
 const GoogleRecaptcha = require('google-recaptcha');
 const googleRecaptcha = new GoogleRecaptcha({secret: process.env.RECAPTCHA_SECRET_KEY})
+var userController = require('../controllers/userController')
 
 module.exports = function(app) {
 	
@@ -16,12 +17,18 @@ module.exports = function(app) {
 
 	  	googleRecaptcha.verify({response: recaptchaResponse}, (error) => {
 	  		if (error) {
-	  			res.send("Não é humano")
+	  			//res.render('register', {isHuman: false})
+	  			console.log(error)
 	  		}
 
-	  		res.render('register', {isHuman: true})
-	  		// aqui fica a chamada pros controllers
- 		    //res.redirect('/')
+	  		const registerData = {
+	        name: req.body.name,
+	        email: req.body.email,
+	        password: req.body.password
+	  		}
+
+	  	  userController.handleInput(registerData)
+ 		    res.redirect('/')
 	  	})
 		  
 	  })
