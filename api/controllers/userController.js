@@ -1,6 +1,6 @@
 const userService = require('../services/userService')
 
-exports.handleInput = function(inputObject) {
+exports.handleInput = function(req, res) {
 
   const registerData = {
 	  name: req.body.name,
