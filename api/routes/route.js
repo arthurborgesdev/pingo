@@ -1,3 +1,6 @@
+const GoogleRecaptcha = require('google-recaptcha');
+const googleRecaptcha = new GoogleRecaptcha({secret: process.env.RECAPTCHA_SECRET_KEY})
+
 module.exports = function(app) {
 	
 	app.route('/')
@@ -9,11 +12,18 @@ module.exports = function(app) {
 		  res.render('register'))
 
 	  .post((req, res) => {
-	  	console.log(req.ip)
-	  	console.log("177.133.15.109")
-		  console.log(req.body)
-		  // aqui fica a chamada pros controllers
-		  res.redirect('/')
+	  	const recaptchaResponse = req.body['g-recaptcha-response']
+
+	  	googleRecaptcha.verify({response: recaptchaResponse}, (error) => {
+	  		if (error) {
+	  			res.send("Não é humano")
+	  		}
+
+	  		res.send("Passouu!")
+	  		// aqui fica a chamada pros controllers
+ 		    //res.redirect('/')
+	  	})
+		  
 	  })
 }
 	
