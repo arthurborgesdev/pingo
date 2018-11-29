@@ -1,6 +1,5 @@
-const GoogleRecaptcha = require('google-recaptcha');
-const googleRecaptcha = new GoogleRecaptcha({secret: process.env.RECAPTCHA_SECRET_KEY})
-var userController = require('../controllers/userController')
+const userController = require('../controllers/userController')
+const recaptcha = require('../middlewares/recaptcha')
 
 module.exports = function(app) {
 	
@@ -13,24 +12,12 @@ module.exports = function(app) {
 		  res.render('register'))
 
 	  .post((req, res) => {
-	  	const recaptchaResponse = req.body['g-recaptcha-response']
 
-	  	googleRecaptcha.verify({response: recaptchaResponse}, (error) => {
-	  		if (error) {
-	  			//res.render('register', {isHuman: false})
-	  			console.log(error)
-	  		}
-
-	  		const registerData = {
-	        name: req.body.name,
-	        email: req.body.email,
-	        password: req.body.password
-	  		}
-
-	  	  userController.handleInput(registerData)
- 		    res.redirect('/')
+	  	recaptcha.captchaVerify(req, res, function() { 
+	  		// Só vai acionar caso o recaptcha funcione
+	  		userController.handleInput(registerData)
 	  	})
-		  
+      
 	  })
 }
 	

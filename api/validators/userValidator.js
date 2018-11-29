@@ -16,7 +16,7 @@ exports.validateInput = function(inputObject, next) {
     function(err, value) {
   	  if (err) {
   	  	console.log(err.details[0].message)
-  		  return err;
+  		  return err.details[0].message;
   	  }
   	  next();
     }
