@@ -16,7 +16,7 @@ exports.validateInput = function(req, res, next) {
     function(err, value) {
   	  if (err) {
   	  	console.log(err.details[0].message)
-  		  req.joi.error = err.details[0].message;
+  		  req.joiError = err.details[0].message;
   	  }
   	  next();
     }
