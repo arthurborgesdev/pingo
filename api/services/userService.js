@@ -9,7 +9,7 @@ exports.saveInput = function(req, res) {
     //console.log(req.joiError)
 
     if (req.joiError) {
-    	res.render('register', { errorMessage: req.joiError })
+    	res.render('register', { errorMessage: req.joiError, isHuman: true })
     } else {
     	// Bcrypt
       // save to DB
