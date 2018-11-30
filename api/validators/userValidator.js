@@ -1,6 +1,6 @@
 const Joi = require('joi')
 
-exports.validateInput = function(inputObject, next) {
+exports.validateInput = function(req, res, next) {
    
   const inputSchema = Joi.object().keys({
   	name: Joi.string().alphanum().min(3).max(30).required(),
@@ -9,14 +9,14 @@ exports.validateInput = function(inputObject, next) {
   });
 
   Joi.validate({
-  	name: inputObject.name,
-  	email: inputObject.email,
-  	password: inputObject.password
+  	name: req.name,
+  	email: req.email,
+  	password: req.password
     }, inputSchema,
     function(err, value) {
   	  if (err) {
   	  	console.log(err.details[0].message)
-  		  return err.details[0].message;
+  		  req.joi.error = err.details[0].message;
   	  }
   	  next();
     }
