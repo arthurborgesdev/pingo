@@ -6,8 +6,8 @@ const userValidator = require('../validators/userValidator')
 exports.saveInput = function(req, res) {
   userValidator.validateInput(req, res, function() {
     
-    console.log(req.joiError)
-    
+    //console.log(req.joiError)
+
     if (req.joiError) {
     	res.render('register', { errorMessage: req.joiError })
     } else {

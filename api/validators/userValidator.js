@@ -15,7 +15,7 @@ exports.validateInput = function(req, res, next) {
     }, inputSchema,
     function(err, value) {
   	  if (err) {
-  	  	console.log(err.details[0].message)
+  	  	//console.log(err.details[0].message)
   		  req.joiError = err.details[0].message;
   	  }
   	  next();
