@@ -17,7 +17,7 @@ exports.validateInput = function(req, res, next) {
   	  if (err) {
   	  	//console.log(err.details[0].message)
   		  var joiError = err.details[0].message;
-        res.render('register', { errorMessage: req.joiError, isHuman: true })
+        res.render('register', { errorMessage: joiError, isHuman: true })
   	  } else {
         return next();
       }
