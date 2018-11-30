@@ -4,13 +4,13 @@ mongoose.model('User')
 const userValidator = require('../validators/userValidator')
 
 exports.saveInput = function(req, res) {
+  
   userValidator.validateInput(req, res, function() {
     
-    	// Bcrypt
-      // save to DB
-      res.redirect('/')
-  	  return;
-    }
+    // Bcrypt
+    // save to DB
+    res.redirect('/')
+  	return;
     
-  });
+  })
 }
