@@ -7,10 +7,9 @@ exports.captchaVerify = function(req, res, next) {
 
 	googleRecaptcha.verify({response: recaptchaResponse}, (error) => {
 	  if (error) {
-	  	res.render('register', {isHuman: false})
-	  	return;
+	  	return next(error);
 	  } else {
-	  	next()
+	  	return next();
 	  }
 	})
 }
