@@ -1,47 +1,47 @@
-// Mongoose requiring and schema definition
+// Mongoose requiring
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const User = mongoose.model('User')
 const userValidator = require('../validators/userValidator')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
+var Promise = require('promise');
+const moment = require('moment');
 
-// Schema declaration
-var UserSchema = new Schema({
-	name: {
-		type: String,
-		required: true
-	},
-	email: {
-		type: Number,
-		required: true
-	},
-	password: {
-		type: String,
-		required: true
-	}
-});
 
-UserSchema.statics.saveInput = function(input, cb) {
+// business logic
+exports.saveInput = function(input, cb) {
 
 	userValidator.validateInput(input, function(err) {
-		
-		if(err) {
+
+    if(err) {
 			var joiError = err.details[0].message;
 			return cb(joiError);
 		}
+    
+    bcrypt.hash(input.password, saltRounds)
+    .then(function (hash) {
 
-		bcrypt.hash(input.password, saltRounds, function(err, hash) {
+	    console.log(input.name, input.email, input.password, hash)
 
-      console.log(input.name, input.email, input.password, hash)
+	    // save to DB
+	    let user = new User({
+	    	name: input.name.toString(),
+	    	email: input.email.toString(),
+	    	password: hash,
+	    	createdOn: moment().format()
+	    })
 
-      // save to DB
-      return cb();
-    })
+	    user.save()
+	    .then(function(user) {
+	    	return cb();
+	    })
+      .catch(function(err){
+      	console.log(err);
+      	return cb();
+      })
+	    
+	  })
 
-  })    
+  })
 
 }
-
-
-// Schema compiling and exportation
-module.exports = mongoose.model('User', UserSchema);

@@ -29,8 +29,10 @@
     "express": "^4.16.4",
     "google-recaptcha": "^1.1.0",
     "joi": "^14.3.0",
+    "moment": "^2.22.2",
     "mongoose": "^5.3.14",
     "passport-local": "^1.0.0",
+    "promise": "^8.0.2",
     "pug": "^2.0.3"
   }
 }

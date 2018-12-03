@@ -1,5 +1,5 @@
-const userService = require('../services/userService')
 const recaptcha = require('../middlewares/recaptcha')
+const UserModel = require('../models/userModel')
 const User = require('../models/user')
 
 exports.handleInput = function(req, res) {
