@@ -11,7 +11,7 @@ const express = require('express'),
 if (process.env.NODE_ENV === "development") {
 	mongoose.connect('mongodb://localhost/pingo', { useNewUrlParser: true })
 } else if (process.env.NODE_ENV === "production") {
-	mongoose.connect(MONGODB_URI, { useNewUrlParser: true }) 
+	mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }) 
 }
 
 
