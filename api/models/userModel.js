@@ -16,7 +16,7 @@ var UserSchema = new Schema({
 		required: true
 	},
 	createdOn: {
-		type: Date,
+		type: String,
 		required: true
 	}
 });
