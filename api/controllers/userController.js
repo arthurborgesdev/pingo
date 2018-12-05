@@ -19,17 +19,36 @@ exports.handleInput = function(req, res) {
 	    User.saveInput(input, function(err, data) {
 	    	if(err) {
 	    		res.render('register', { errorMessage: err, isHuman: true })
+	    	} else if (data === "same") {
+	    		res.render('register', { errorMessage: 'Usuário já cadastrado', isHuman: true });
+	    	  return;
 	    	} else {
 	    		res.redirect('/');
 	    	  return;
-	    	}
-
-	    	
+        }
 	    });
     }
 	  
-
-
 	})
+
+}
+
+
+exports.handleLogin = function(req, res) {
+
+	let login = {
+	  email: req.body.email,
+	  password: req.body.password
+  }
+
+  User.loginVerify(login, function(err, data) {
+	  if(err) {
+	    res.render('/', { errorMessage: err })
+	  } else {
+	    res.redirect('map');
+	    return;
+	  }
+
+	});
 
 }

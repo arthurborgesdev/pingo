@@ -1,11 +1,17 @@
 require('dotenv').config()
 const express = require('express'),
       app = express(),
+      redis = require('redis'),
+      session = require('express-session'),
+      redisStore = require('connect-redis')(session),
+      client = redis.createClient(),
       port = process.env.PORT,
       path = require('path'),
       bodyParser = require('body-parser'),
       routes = require('./api/routes/route')
-      mongoose = require('mongoose')
+      mongoose = require('mongoose'),
+      passport = require('passport'),
+      Strategy = require('passport-local').Strategy;
 
 // substituir pelo link do mLAB no heroku em produção
 if (process.env.NODE_ENV === "development") {
@@ -14,6 +20,12 @@ if (process.env.NODE_ENV === "development") {
 	mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }) 
 }
 
+app.use(session({
+	secret: 'ssshhhhh',
+	store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 260 }),
+	saveUninitialized: false,
+	resave: false
+}));
 
 
 app.use(bodyParser.urlencoded({extended: false}))
