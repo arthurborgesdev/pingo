@@ -1,4 +1,5 @@
-const userController = require('../controllers/userController')
+const userController = require('../controllers/userController'),
+      passport = require('passport')
 
 module.exports = function(app) {
 	
@@ -6,8 +7,16 @@ module.exports = function(app) {
 	  .get((req, res) => 
 		  res.render('index'))
 
-	  .post((req, res) =>
-	  	userController.handleLogin(req, res))
+	  .post((req, res) => {
+        console.log("Antes do authenticate")
+	  	  passport.authenticate('local', {failureRedirect:'/'}), (err, user, info) => {
+	  	  	console.log("Dentro do callback do authenticate")
+	  	    res.redirect('/map')
+	  	  }
+        console.log("Depois do authenticate")
+	    })
+
+	  	//userController.handleLogin(req, res))
 
 	app.route('/register')
 	  .get((req, res) => 

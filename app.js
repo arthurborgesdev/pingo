@@ -20,19 +20,11 @@ if (process.env.NODE_ENV === "development") {
 	mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }) 
 }
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 app.use(session({
 	secret: 'ssshhhhh',
-	//store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 260 }),
-	saveUninitialized: false,
-	resave: false,
+	store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 260 }),
+	saveUninitialized: true,
+	resave: true,
 	cookie: { maxAge: 24*60*60*1000, secure: false}
 }));
 
@@ -47,6 +39,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.set('views', './views')
 app.set('view engine', 'pug')
+
+require('./api/middlewares/passport');
 
 routes(app);
 
