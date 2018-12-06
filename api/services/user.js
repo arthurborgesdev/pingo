@@ -54,7 +54,7 @@ exports.saveInput = function(input, cb) {
 	    })
 
     }
-    
+
   })
 
 }
@@ -68,21 +68,22 @@ exports.loginVerify = function(login, cb) {
   console.log(password);
 
   passport.use(new Strategy(
-  function(email, password, cb) {
-  	console.log("To aqui");
-    User.findOne({ email: email } , function(err, user) {
+    function(email, password, cb) {
+  	  console.log("To aqui");
+      User.findOne({ email: email }, function(err, user) {
 
-      console.log(user);
+        console.log(user);
 
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      if (bcrypt.compareSync(myPlaintextPassword, hash)) { return cb(null, false); }
-      return cb(null, user);
-    });
-  }));
+        if (err) { return cb(err); }
+        if (!user) { return cb(null, false); }
+        if (bcrypt.compareSync(myPlaintextPassword, hash)) { return cb(null, false); }
+        return cb(null, user);
+      });
+    }
+  ));
 
   passport.serializeUser(function(user, cb) {
-    cb(null, user.email);
+    cb(null, user.id);
   });
 
   passport.deserializeUser(function(id, cb) {
@@ -95,5 +96,4 @@ exports.loginVerify = function(login, cb) {
   passport.authenticate('local', { failureRedirect: '/' }), function() {
     cb();
   };
-
 }

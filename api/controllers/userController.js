@@ -40,6 +40,8 @@ exports.handleLogin = function(req, res) {
 	  email: req.body.email,
 	  password: req.body.password
   }
+  console.log(req.sessionStore)
+  console.log(req.session)
 
   User.loginVerify(login, function(err, data) {
 	  if(err) {

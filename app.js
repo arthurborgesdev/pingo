@@ -13,20 +13,31 @@ const express = require('express'),
       passport = require('passport'),
       Strategy = require('passport-local').Strategy;
 
-// substituir pelo link do mLAB no heroku em produção
+// substitui pelo link do mLAB no heroku em produção
 if (process.env.NODE_ENV === "development") {
 	mongoose.connect('mongodb://localhost/pingo', { useNewUrlParser: true })
 } else if (process.env.NODE_ENV === "production") {
 	mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }) 
 }
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(session({
 	secret: 'ssshhhhh',
-	store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 260 }),
+	//store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 260 }),
 	saveUninitialized: false,
-	resave: false
+	resave: false,
+	cookie: { maxAge: 24*60*60*1000, secure: false}
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
