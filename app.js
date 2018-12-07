@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(session({
 	secret: 'ssshhhhh',
-	store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 260 }),
+	store: new redisStore({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, client: client, ttl: 260 }),
 	saveUninitialized: true,
 	resave: true,
 	cookie: { maxAge: 24*60*60*1000, secure: false}

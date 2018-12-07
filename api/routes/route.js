@@ -1,32 +1,39 @@
 const userController = require('../controllers/userController'),
       passport = require('passport')
+      const router = require('express').Router();
 
 module.exports = function(app) {
 	
 	app.route('/')
-	  .get((req, res) => 
-		  res.render('index'))
+	  .get(function(req, res) {
+		  res.render('index', {isCorrect: true})
+	  })
+		.post(function(req, res, next) {
+      passport.authenticate('local', function(err, user, info) {
+      	if(err) {return next(err);}
+      	//console.log("USER AQUI");
+      	//console.log(user);
+      	if (!user) { return res.render('index', {isCorrect: false })}
+      	//req.login(user, next);
+        res.redirect('/map')
 
-	  .post((req, res) => {
-        console.log("Antes do authenticate")
-	  	  passport.authenticate('local', {failureRedirect:'/'}), (err, user, info) => {
-	  	  	console.log("Dentro do callback do authenticate")
-	  	    res.redirect('/map')
-	  	  }
-        console.log("Depois do authenticate")
-	    })
-
-	  	//userController.handleLogin(req, res))
+      })(req, res, next)
+	  })
 
 	app.route('/register')
-	  .get((req, res) => 
-		  res.render('register', {isHuman: true}))
-
-	  .post((req, res) => 
-	  	userController.handleInput(req, res))
+	  .get(function(req, res) {
+		  res.render('register', {isHuman: true})
+	  })
+		  
+	  .post(function(req, res) {
+	  	userController.handleInput(req, res)
+	  })
+	  	
 
   app.route('/map')
-    .get((req, res) =>
-    	res.render('map'))
+    .get(function(req, res) {
+  	  res.render('map')
+    })
+ 
 }
 	

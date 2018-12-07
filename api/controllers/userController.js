@@ -32,28 +32,3 @@ exports.handleInput = function(req, res) {
 	})
 
 }
-
-
-exports.handleLogin = function(req, res) {
-
-	
-	let login = {
-	  email: req.body.email,
-	  password: req.body.password
-  }
-  
-  console.log(req.sessionStore)
-  console.log(req.session.id)
-  console.log(req.session)
-
-  User.loginVerify(login, function(err, data) {
-	  if(err) {
-	    res.render('/', { errorMessage: err })
-	  } else {
-	    res.redirect('map');
-	    return;
-	  }
-
-	});
-
-}

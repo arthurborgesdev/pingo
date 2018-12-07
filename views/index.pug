@@ -21,9 +21,11 @@ html(lang='pt')
       label(for='inputPassword' class='sr-only') Senha
       input(type='password' name="password" id='inputPassword' class='form-control' placeholder='Senha' required)
       div(class='checkbox mb-3')
-        label
-          input(type='checkbox' value='remember-me') 
-          |  Lembrar-me
+      if !isCorrect
+        p(class='h6 mb-3 font-weight-normal' style={color:'red'}) Senha ou usuário inválidos!
+      label
+        input(type='checkbox' value='remember-me') 
+        |  Lembrar-me
       button(class='btn btn-lg btn-primary btn-block' type='submit') Entrar
       a(href='/register' class='btn btn-lg btn-secondary btn-block' type='register') Registrar
       p(class='mt-5 mb-3 text-muted copyright') &copy; Pingo 2018
