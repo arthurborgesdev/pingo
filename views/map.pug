@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title Simple Map
+    meta(name='viewport' content='initial-scale=1.0')
+    meta(charset='utf-8')
+    link(href='/public/css/map-styles.css' rel='stylesheet')
+    
+  body
+    div(id='map')
+
+    script(src='/public/js/map-code.js')
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDMqjAINm_wugp43jCNPpoHw1mReK-tp_w&callback=initMap' async defer)
