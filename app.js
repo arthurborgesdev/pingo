@@ -29,7 +29,10 @@ app.use(session({
 	cookie: { maxAge: 24*60*60*1000, secure: false}
 }));
 
-
+client.set('foo', 'bar');
+client.get('foo', function (err, reply) {
+    console.log(reply.toString()); // Will print `bar`
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
