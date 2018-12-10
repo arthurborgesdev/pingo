@@ -20,12 +20,13 @@ if (process.env.NODE_ENV === "development") {
 	mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }) 
 }
 
+// Provavelmente terei que mexer aqui para o session redis funcionar no Heroku
 app.use(session({
 	secret: 'ssshhhhh',
 	store: new redisStore({ host: process.env.REDIS_URL, port: process.env.REDIS_PORT, client: client, ttl: 260 }),
 	saveUninitialized: true,
 	resave: true,
-	cookie: { maxAge: 24*60*60*1000, secure: process.env.SECURE_COOKIE}
+	cookie: { maxAge: 24*60*60*1000, secure: false}
 }));
 
 app.use(passport.initialize());
