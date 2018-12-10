@@ -28,7 +28,7 @@ module.exports = function(app) {
 		res.render('register', {isHuman: true})
 	})
 		  
-	app.post(function(req, res) {
+	app.post('/register', function(req, res) {
 	  userController.handleInput(req, res)
 	})
 
