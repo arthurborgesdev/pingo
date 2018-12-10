@@ -33,9 +33,8 @@ module.exports = function(app) {
 	})
 
 	app.get('/map', loggedIn, function(req, res) {
-
-	  passport.authorize('local', { failureRedirect:'/' })
-		res.render('map')
+      console.log(req.user)
+	  res.render('map')
 	})
 } 
 	
