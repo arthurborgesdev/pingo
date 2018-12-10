@@ -4,16 +4,15 @@ const express = require('express'),
       redis = require('redis'),
       session = require('express-session'),
       redisStore = require('connect-redis')(session),
+      client = redis.createClient(),
       port = process.env.PORT,
       path = require('path'),
       bodyParser = require('body-parser'),
-      client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_URL, {no_ready_check: true});
       routes = require('./api/routes/route')
       mongoose = require('mongoose'),
       passport = require('passport'),
       Strategy = require('passport-local').Strategy;
       
-
 // substitui pelo link do mLAB no heroku em produção
 if (process.env.NODE_ENV === "development") {
 	mongoose.connect('mongodb://localhost/pingo', { useNewUrlParser: true })
@@ -26,13 +25,8 @@ app.use(session({
 	store: new redisStore({ host: process.env.REDIS_URL, port: process.env.REDIS_PORT, client: client, ttl: 260 }),
 	saveUninitialized: true,
 	resave: true,
-	cookie: { maxAge: 24*60*60*1000, secure: false}
+	cookie: { maxAge: 24*60*60*1000, secure: process.env.SECURE_COOKIE}
 }));
-
-client.set('foo', 'bar');
-client.get('foo', function (err, reply) {
-    console.log(reply.toString()); // Will print `bar`
-});
 
 app.use(passport.initialize());
 app.use(passport.session());
