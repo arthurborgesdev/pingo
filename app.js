@@ -1,10 +1,10 @@
 require('dotenv').config()
 const express = require('express'),
       app = express(),
-      redis = require('redis'),
+      //redis = require('redis'),
       session = require('express-session'),
-      redisStore = require('connect-redis')(session),
-      client = redis.createClient(),
+      //redisStore = require('connect-redis')(session),
+      //client = redis.createClient(),
       port = process.env.PORT,
       path = require('path'),
       bodyParser = require('body-parser'),
