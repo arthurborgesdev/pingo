@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "browser-sync": "browser-sync start --proxy \"localhost:3000\" --files \"views/, public/\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
