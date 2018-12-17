@@ -25,6 +25,11 @@ function initMap() {
   	// Browser doesn't support Geolocation
   	handleLocationError(false, infoWindow, map.getCenter());
   }
+
+  map.addListener('click', function(e) {
+    placeMarker(e.latLng, map);
+  });
+  
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -33,4 +38,22 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 		                    'Error: The Geolocation service failed.' :
 		                    'Error: Your browser does\'t support geolocation.');
 	infoWindow.open(map);
+}
+
+function placeMarker(position, map) {
+  var marker = new google.maps.Marker({
+    position: position,
+    map: map
+  });
+
+  var infowindow = new google.maps.InfoWindow({
+    content: '<div>Hello world!</div>'
+  })
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  })
+
+  // Make AJAX to save the point to Database
+  map.panTo(position);
 }
