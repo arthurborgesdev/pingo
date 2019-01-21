@@ -27,7 +27,17 @@ function initMap() {
   }
 
   map.addListener('click', function(e) {
-    placeMarker(e.latLng, map);
+
+    $.ajax({
+      url: '../html/item.html',
+      type: 'get',
+      success: function(html) {
+        var pageContent = String(html)
+        placeMarker(e.latLng, map, pageContent);
+      }
+    })
+
+    
   });
   
 }
@@ -40,14 +50,14 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 	infoWindow.open(map);
 }
 
-function placeMarker(position, map) {
+function placeMarker(position, map, pageContent) {
   var marker = new google.maps.Marker({
     position: position,
     map: map
   });
 
   var infowindow = new google.maps.InfoWindow({
-    content: '<div>Hello world!</div>'
+    content: pageContent
   })
 
   marker.addListener('click', function() {
