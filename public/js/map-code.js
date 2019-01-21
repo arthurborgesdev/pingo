@@ -6,6 +6,9 @@ function initMap() {
   });
   infoWindow = new google.maps.InfoWindow;
 
+  var item = '<input placeholder="Adicione o item" />' +
+              '<button>OK</button>';
+
   //Try HTML5 geolocation
   if (navigator.geolocation) {
   	navigator.geolocation.getCurrentPosition(function(position) {
@@ -29,7 +32,7 @@ function initMap() {
   map.addListener('click', function(e) {
 
     $.ajax({
-      url: '../html/item.html',
+      url: '../html/itemGeral.html',
       type: 'get',
       success: function(html) {
         var pageContent = String(html)
@@ -67,3 +70,7 @@ function placeMarker(position, map, pageContent) {
   // Make AJAX to save the point to Database
   map.panTo(position);
 }
+
+$(".plus").click(function() {
+  alert("hahaha");
+})
